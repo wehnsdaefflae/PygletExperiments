@@ -10,19 +10,19 @@ def distance_on_circumference(a: float, b: float, circumference: float = 1.) -> 
     return distance
 
 
-def uniform_distribution_on_circumference(values: Collection[float]) -> float:
+def uniformity_on_circumference(values: Collection[float]) -> float:
   l = len(values)
   assert 0 < l
   if l == 1:
     return 0.
-    
+
   s = 0.
   for i, each_value in enumerate(values):
-    for j in range(i+1, len(values)):
+    for j in range(i+1, l):
       other_value = values[j]
       s += math.sqrt(distance_on_circumference(each_value, other_value))
   
-  return s / (l * (l - 1) / 2.)
+  return 2. * s / (l * (l - 1) / 2.)
 
 
 def concentration(values: Collection[float]) -> float:

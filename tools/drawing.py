@@ -42,7 +42,7 @@ class Canvas(pyglet.window.Window):
   def update(self, dt: float) -> None:
     if self.has_exit:
       pyglet.app.exit()
-      
+
     self._update(dt)
   
   def on_draw(self) -> None:
@@ -64,3 +64,6 @@ class Canvas(pyglet.window.Window):
     The `on_draw` function is called every time the window is supposed to be drawn.
     '''
     raise NotImplementedError()
+
+  def run(self) -> None:
+    pyglet.app.run()

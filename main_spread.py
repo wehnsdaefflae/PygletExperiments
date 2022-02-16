@@ -1,7 +1,5 @@
-import math
-import time
 from tools.spread import spreadIterative
-from tools.various import linear_to_circular, uniform_distribution_on_circumference
+from tools.various import linear_to_circular, uniformity_on_circumference
 from tools.drawing import Canvas
 
 import pyglet
@@ -46,17 +44,18 @@ class SpreadCanvas(Canvas):
       )
 
   def _update(self, dt: float) -> None:
-    if not self.mouse_released:
+    if False and not self.mouse_released:
       return
 
     self.mouse_released = False
     
     self.last_circle = self.this_circle
     self.this_circle = spreadIterative(self.iteration)
+    # self.this_circle = (self.this_circle + .4) % 1.
     
     self.points.append(self.this_circle)
 
-    self.uniformity = uniform_distribution_on_circumference(self.points)
+    self.uniformity = uniformity_on_circumference(self.points)
 
     if self.last_circle >= 0.:
       self.distance = abs(self.this_circle - self.last_circle)
@@ -94,7 +93,9 @@ class SpreadCanvas(Canvas):
         ("c4B", (255, 255, 255, 128,
                  255, 255, 255, 128))
         )
-      label = pyglet.text.Label(f"{self.average_distance=:.4f}, {self.distance=:.4f}, {self.uniformity=:.4f}", x=2, y=2, font_size=16, color=(255, 255, 255, 255))
+      label = pyglet.text.Label(
+        f"{self.iteration:d}, {self.distance=:.4f}, {self.average_distance=:.4f}, {self.uniformity=:.4f}, product: {self.average_distance * self.uniformity:.4f}", 
+        x=2, y=2, font_size=16, color=(255, 255, 255, 255))
       label.draw()
 
   def on_mouse_release(self, x: int, y: int, button: int, modifiers: int):
@@ -104,8 +105,7 @@ class SpreadCanvas(Canvas):
 
 def main():
   canvas = SpreadCanvas(width=1024, height=768, updates_per_second=60)
-  
-  pyglet.app.run()
+  canvas.run()
 
 
 if __name__ == '__main__':
