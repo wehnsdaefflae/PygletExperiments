@@ -1,14 +1,13 @@
+# coding=utf-8
 import pyglet
 
 from pyglet.gl import GL_POINTS
 from random import randint, uniform
 
-
 window = pyglet.window.Window(width=960, height=540)
 fps_display = pyglet.window.FPSDisplay(window=window)
-label = pyglet.text.Label(x=10, y=window.height-40)
+label = pyglet.text.Label(x=10, y=window.height - 40)
 batch = pyglet.graphics.Batch()
-
 
 particles = []
 
@@ -60,5 +59,5 @@ def on_draw():
 
 
 pyglet.gl.glPointSize(2)
-pyglet.clock.schedule_interval(update_particles, 1/60)
+pyglet.clock.schedule_interval(update_particles, 1 / 60)
 pyglet.app.run()
